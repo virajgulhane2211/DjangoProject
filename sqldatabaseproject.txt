@@ -1,0 +1,74 @@
+Install Djanago
+---------------
+py -m pip install Django==5.2.4
+
+django-admin startproject modelproject3
+cd modelproject3
+py manage.py  startapp testapp
+
+settings.py
+-----------
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'testapp'
+]
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'studentdb',
+        'USER': 'ec2user',
+        'PASSWORD':'yourpassword',
+        'HOST':'15.206.116.252',
+        'PORT':3306
+    }
+}
+
+
+models.py
+---------
+from django.db import models
+
+# Create your models here.
+class Employee2(models.Model):
+    eno = models.IntegerField()
+    ename = models.CharField(max_length=30)
+    esal = models.FloatField()
+    eaddr = models.CharField(max_length=30)
+
+pip install pymysql
+pip install mysqlclient
+py manage.py makemigrations
+py manage.py migrate
+
+admin.py
+--------
+from django.contrib import admin
+from testapp.models import Employee2
+# Register your models here.
+class Employee2Admin(admin.ModelAdmin):
+    list_display = ['eno','ename','eaddr']
+admin.site.register(Employee2,Employee2Admin)
+
+
+py manage.py createsuperuser
+
+py manage.py runserver
+
+http://127.0.0.1:8000/admin/
+
+
+-----------------------------
+Go Databaselevel
+mysql -u root -p
+yourpassword
+
+show databases;
+use studentdb;
+show tables;
+select * from testapp_employee2;

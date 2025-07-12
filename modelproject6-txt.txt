@@ -1,0 +1,60 @@
+Ubuntu Server
+-------------
+sudo su -
+sudo apt update
+sudo apt install mysql-server
+sudo systemctl start mysql
+sudo mysql_secure_installation
+
+Press y|Y for Yes, any other key for No: Y
+Please enter 0 = LOW, 1 = MEDIUM and 2 = STRONG: 0
+Remove anonymous users? (Press y|Y for Yes, any other key for No) : No
+Disallow root login remotely? (Press y|Y for Yes, any other key for No) : No
+Remove test database and access to it? (Press y|Y for Yes, any other key for No) : No
+Reload privilege tables now? (Press y|Y for Yes, any other key for No) : y
+
+sudo mysql -u root -p
+Enter password: root
+
+
+
+
+
+
+CREATE DATABASE employee;
+CREATE USER 'ec2user'@'%' IDENTIFIED BY 'yourpassword';
+GRANT ALL PRIVILEGES ON employee.* TO 'ec2user'@'%';
+FLUSH PRIVILEGES;
+EXIT;
+
+sudo vim /etc/mysql/mysql.conf.d/mysqld.cnf
+find: bind-address = 127.0.0.1
+change it to: bind-address = 0.0.0.0
+:wq
+
+sudo systemctl restart MySQL
+sudo mysql -u root -p
+
+SELECT user, host FROM mysql.user;
+
+CREATE USER 'ec2user'@'%' IDENTIFIED BY 'root';
+
+ALTER USER 'ec2user'@'%' IDENTIFIED BY 'newpassword';
+FLUSH PRIVILEGES;
+
+GRANT ALL PRIVILEGES ON employee.* TO 'ec2user'@'%';
+FLUSH PRIVILEGES;
+
+py manage.py createsuperuser
+py manage.py runserver
+http://127.0.0.1:8000/admin/
+
+http://127.0.0.1:8000/empdata/
+
+
+Ubuntu Server
+-------------
+show databases;
+use employee;
+show tables;
+select * from testapp_employee;
