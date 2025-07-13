@@ -82,7 +82,7 @@ DATABASES = {
         'NAME': 'employee',
         'USER':'ec2user',
         'PASSWORD':'yourpassword',
-        'HOST':'15.206.116.252',
+        'HOST':'13.201.45.204',
         'PORT':3306
     }
 }
